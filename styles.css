@@ -8,6 +8,9 @@
 :root {
 	--team-primary: #0c2340;
 	--team-secondary: #c8102e;
+	--team-header-bg: rgba(12, 35, 64, 0.95);
+	--team-gradient-start: #0c2340;
+	--team-gradient-end: #c8102e;
 }
 
 body {
@@ -17,8 +20,8 @@ body {
 	color: #333;
 	background: linear-gradient(
 		135deg,
-		var(--team-primary) 0%,
-		var(--team-secondary) 100%
+		var(--team-gradient-start) 0%,
+		var(--team-gradient-end) 100%
 	);
 	min-height: 100vh;
 }
@@ -31,7 +34,7 @@ body {
 
 /* Header */
 .header {
-	background: rgba(12, 35, 64, 0.95);
+	background: var(--team-header-bg);
 	backdrop-filter: blur(10px);
 	border-bottom: 3px solid var(--team-secondary);
 	position: sticky;
@@ -62,6 +65,7 @@ body {
 	font-size: 1.8rem;
 	font-weight: 700;
 	margin: 0;
+	color: white;
 }
 
 .header-info {
@@ -74,7 +78,11 @@ body {
 
 .season {
 	font-weight: 600;
-	color: var(--team-secondary);
+	color: white;
+}
+
+.venue {
+	color: #e0e0e0;
 }
 
 /* Main content */
@@ -152,6 +160,7 @@ body {
 	background: white;
 	cursor: pointer;
 	transition: border-color 0.3s ease;
+	color: #333;
 }
 
 .filters select:focus,
@@ -161,9 +170,9 @@ body {
 }
 
 .refresh-btn {
-	background: var(--team-secondary);
+	background: var(--team-primary);
 	color: white;
-	border: none;
+	border: 2px solid var(--team-primary);
 	padding: 12px 20px;
 	border-radius: 8px;
 	font-size: 1rem;
@@ -171,11 +180,13 @@ body {
 	display: flex;
 	align-items: center;
 	gap: 8px;
-	transition: background-color 0.3s ease;
+	transition: all 0.3s ease;
 }
 
 .refresh-btn:hover {
-	background: color-mix(in srgb, var(--team-secondary) 80%, black);
+	background: white;
+	color: var(--team-primary);
+	border-color: var(--team-primary);
 }
 
 .refresh-btn i {
@@ -213,8 +224,8 @@ body {
 .stat-icon {
 	background: linear-gradient(
 		135deg,
-		var(--team-secondary),
-		color-mix(in srgb, var(--team-secondary) 80%, black)
+		var(--team-primary),
+		color-mix(in srgb, var(--team-primary) 80%, black)
 	);
 	color: white;
 	width: 60px;
@@ -318,27 +329,32 @@ body {
 	font-size: 0.9rem;
 	opacity: 0.9;
 	margin-bottom: 0.5rem;
+	color: white;
 }
 
 .game-matchup {
 	font-size: 1.3rem;
 	font-weight: 600;
 	margin-bottom: 0.5rem;
+	color: white;
 }
 
 .game-time {
 	font-size: 0.9rem;
 	opacity: 0.8;
+	color: white;
 }
 
 .game-venue {
 	position: absolute;
 	top: 1rem;
 	right: 1rem;
-	background: rgba(200, 16, 46, 0.9);
+	background: rgba(255, 255, 255, 0.9);
+	color: var(--team-primary);
 	padding: 0.25rem 0.75rem;
 	border-radius: 20px;
 	font-size: 0.8rem;
+	font-weight: 600;
 }
 
 .game-content {
@@ -370,7 +386,7 @@ body {
 }
 
 .promotion-type {
-	background: var(--team-secondary);
+	background: var(--team-primary);
 	color: white;
 	padding: 0.25rem 0.5rem;
 	border-radius: 12px;
@@ -416,24 +432,31 @@ body {
 }
 
 .btn-primary {
-	background: var(--team-secondary);
+	background: var(--team-primary);
 	color: white;
+	border: 2px solid var(--team-primary);
+	font-weight: 600;
 }
 
 .btn-primary:hover {
-	background: color-mix(in srgb, var(--team-secondary) 80%, black);
+	background: white;
+	color: var(--team-primary);
+	border-color: var(--team-primary);
 	transform: translateY(-1px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-secondary {
-	background: #f8f9fa;
+	background: white;
 	color: var(--team-primary);
-	border: 2px solid #e0e0e0;
+	border: 2px solid var(--team-primary);
+	font-weight: 500;
 }
 
 .btn-secondary:hover {
-	background: #e9ecef;
-	border-color: var(--team-secondary);
+	background: var(--team-primary);
+	color: white;
+	border-color: var(--team-primary);
 }
 
 .no-promotions {
@@ -508,4 +531,19 @@ body {
 		flex-direction: column;
 		gap: 0.25rem;
 	}
+}
+
+/* Promotion links styling */
+.promotion-link {
+	color: var(--team-primary) !important;
+	text-decoration: none;
+	font-weight: 500;
+	font-size: 0.9rem;
+	margin-top: 0.5rem;
+	display: inline-block;
+}
+
+.promotion-link:hover {
+	text-decoration: underline;
+	color: color-mix(in srgb, var(--team-primary) 80%, black) !important;
 }

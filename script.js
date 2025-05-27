@@ -5,7 +5,13 @@ const TEAMS = {
         shortName: "Guardians",
         venue: "Progressive Field",
         city: "Cleveland",
-        colors: { primary: "#0c2340", secondary: "#c8102e" },
+        colors: { 
+            primary: "#0c2340", 
+            secondary: "#c8102e",
+            headerBg: "rgba(12, 35, 64, 0.95)",
+            gradientStart: "#0c2340",
+            gradientEnd: "#c8102e"
+        },
         apiParams: {
             begin_date: "20250512",
             end_date: "20251231",
@@ -18,7 +24,13 @@ const TEAMS = {
         shortName: "Red Sox",
         venue: "Fenway Park",
         city: "Boston",
-        colors: { primary: "#bd3039", secondary: "#0c2340" },
+        colors: { 
+            primary: "#0c2340", 
+            secondary: "#bd3039",
+            headerBg: "rgba(189, 48, 57, 0.95)",
+            gradientStart: "#bd3039",
+            gradientEnd: "#0c2340"
+        },
         apiParams: {
             begin_date: "20250327",
             end_date: "20251231",
@@ -30,7 +42,13 @@ const TEAMS = {
         shortName: "Dodgers",
         venue: "Dodger Stadium",
         city: "Los Angeles",
-        colors: { primary: "#005a9c", secondary: "#ffffff" },
+        colors: { 
+            primary: "#005a9c", 
+            secondary: "#ffffff",
+            headerBg: "rgba(0, 90, 156, 0.95)",
+            gradientStart: "#005a9c",
+            gradientEnd: "#1e88e5"
+        },
         apiParams: {
             begin_date: "20250323",
             end_date: "20251105",
@@ -280,19 +298,19 @@ function setupEventListeners() {
 
 function populateTeamSelector() {
     teamSelector.innerHTML = '';
-    Object.entries(TEAMS).forEach(([teamId, team]) => {
+    for (const [teamId, team] of Object.entries(TEAMS)) {
         const option = document.createElement('option');
         option.value = teamId;
         option.textContent = team.name;
-        if (parseInt(teamId) === currentTeam) {
+        if (Number.parseInt(teamId) === currentTeam) {
             option.selected = true;
         }
         teamSelector.appendChild(option);
-    });
+    }
 }
 
 function handleTeamChange() {
-    const newTeamId = parseInt(teamSelector.value);
+    const newTeamId = Number.parseInt(teamSelector.value);
     if (newTeamId !== currentTeam) {
         currentTeam = newTeamId;
         updateTeamBranding();
@@ -310,6 +328,9 @@ function updateTeamBranding() {
     // Update CSS custom properties for team colors
     document.documentElement.style.setProperty('--team-primary', team.colors.primary);
     document.documentElement.style.setProperty('--team-secondary', team.colors.secondary);
+    document.documentElement.style.setProperty('--team-header-bg', team.colors.headerBg);
+    document.documentElement.style.setProperty('--team-gradient-start', team.colors.gradientStart);
+    document.documentElement.style.setProperty('--team-gradient-end', team.colors.gradientEnd);
     
     // Update page title
     document.title = `${team.name} - Game Promotions & Tickets`;
@@ -347,7 +368,7 @@ async function loadData() {
 }
 
 function processData(data) {
-    if (data && data.events && data.events.game) {
+    if (data?.events?.game) {
         allGames = data.events.game;
         filteredGames = [...allGames];
         
@@ -366,9 +387,8 @@ function updateStats() {
         if (game.promotion) {
             if (Array.isArray(game.promotion)) {
                 return count + game.promotion.length;
-            } else {
-                return count + 1;
             }
+            return count + 1;
         }
         return count;
     }, 0);
@@ -413,12 +433,12 @@ function populateFilters() {
     }
     
     promotionFilter.innerHTML = '<option value="">All Promotions</option>';
-    [...promotionTypes].sort().forEach(type => {
+    for (const type of [...promotionTypes].sort()) {
         const option = document.createElement('option');
         option.value = type;
         option.textContent = type;
         promotionFilter.appendChild(option);
-    });
+    }
 }
 
 function renderGames() {
@@ -597,19 +617,6 @@ style.textContent = `
         border-radius: 12px;
         color: #666;
         font-size: 1.1rem;
-    }
-    
-    .promotion-link {
-        color: var(--team-secondary, #c8102e);
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 0.9rem;
-        margin-top: 0.5rem;
-        display: inline-block;
-    }
-    
-    .promotion-link:hover {
-        text-decoration: underline;
     }
 `;
 document.head.appendChild(style); 
